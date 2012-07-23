@@ -2,7 +2,10 @@
 ## A simple, lightweight bulletin board application.
 
 Corkboard.
+#Default Settings
 
+- Default Login Email : admin@local.ho.st
+- Default Login Password : 5hell!
 
 #License
 This program follows MIT License.
