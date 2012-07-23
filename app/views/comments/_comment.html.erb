@@ -1,0 +1,15 @@
+<p>
+  <b><%= comment.commenter %></b> says on <b><%= comment.created_at.strftime("%B %d, %Y %k:%M") %></b>
+</p>
+<p>
+  <%= comment.body %>
+</p>
+<% if current_user %>
+<% if comment.commenter == current_user.name %>
+<p>
+<%= link_to 'Destroy Comment', [comment.post, comment],
+			:confirm => 'Are you sure?' ,
+			:method => :delete %>
+</p>
+<% end %>
+<% end %>

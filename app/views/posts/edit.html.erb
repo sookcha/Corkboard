@@ -1,0 +1,15 @@
+<% if current_user %>
+
+<% if current_user.name == @post.author %>
+<h1>Editing post</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @post %> |
+<%= link_to 'Back', posts_path %>
+<% else %>
+You are not authorized.
+<% end %>
+<% else %>
+
+<% end %> 

@@ -1,0 +1,77 @@
+<% if current_user %>
+<% if current_user.admin%>
+
+<div class="container-fluid">
+    <h1>Management.</h1>
+
+  <div class="row-fluid">
+    <div class="span2">
+        <div class='well'>
+   <ul class="nav nav-list">
+  <li class="nav-header">
+    Board
+  </li>
+    <li>
+    <a href='/system-manage/boards'>Boards</a>
+</li>
+  <li class="divider"></li>
+
+  <li class="nav-header">
+    ETC
+  </li>
+  <li>
+    <a href='/system-manage/users'>Users</a>
+
+</li>
+  <li>
+    <a href='/system-manage/plugins'>Plugins</a>
+
+</li>
+  <li>
+    <a href='/system-manage/themes'>Themes</a>
+</li>
+</ul>
+        </div>
+    </div>
+    <div class="span10">
+      <%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+      <%= f.label :admin %>
+      <%= f.check_box :admin %>
+    </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+    </div>
+  </div>
+</div>
+
+  <% else %>
+  You are not admin
+<% end %>
+<% else %>
+Please log-in
+<%= render :template => 'sessions/new' %>
+<% end %>

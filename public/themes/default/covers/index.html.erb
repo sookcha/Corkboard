@@ -1,0 +1,72 @@
+<div class="container-fluid">
+	<h1>Corkboard.</h1>
+  <div class="row-fluid">
+    <div class="span2">
+      <%= flash[:error] %>
+      <div class="container-login">
+  <div class='well'>
+<% if !current_user %>
+    <%= render :template => 'sessions/new' %>
+<% end %>
+<% if current_user %>
+<% if current_user.admin%>
+  <%= link_to 'Logout', :controller => "sessions" , :action => 'destroy', method: :delete %>
+  |
+  <%= link_to 'Management', 'system-manage' %>
+
+<p><%= current_user.name %></p>
+
+<% else %>
+<% end %>
+<%if !current_user.admin%>
+<%= link_to 'Logout', :controller => "sessions" , :action => 'destroy', method: :delete %>
+<% end %>
+
+<% end %>
+
+</div>
+</div>
+
+      <div class='well'>
+
+   <ul class="nav nav-list">
+  <li class="nav-header">
+    Boards
+  </li>
+  <% @boards.each do |board| %>
+  <li>
+
+  <%= link_to board.name, :controller => "boards", :board => board.id %>
+</li>
+  <% end %>
+</ul>
+</div>
+    </div>
+    <div class="span10">
+        <% @boards.each do |board| %>
+      <table class='table table-bordered table-condensed'>
+  <thead>
+    <tr>
+        <th><%= link_to board.name, :controller => "boards", :board => board.id %></th>
+        <% if current_user %>
+        <th><%= link_to "New Post", :controller => "posts", :action => 'new', :board => board.id%></th>
+        <% end %>
+    </tr>
+  </thead>
+  <tbody>
+  <% board.posts.order('created_at desc').each do |post|%>
+    <tr>
+      <td><%= link_to post.title,post, :class => 'article_link' %></td>
+      <td><%= post.created_at.strftime("%m/%d, %k:%M") %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+      <% end %>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class='span6'>Copyright (C) Sookcha. All rights reserved. Powered by Corkboard.</div>
+</div>
+</footer>

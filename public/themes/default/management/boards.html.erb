@@ -1,0 +1,62 @@
+<% if current_user %>
+<% if current_user.admin%>
+
+<div class="container-fluid">
+		<h1>Management.</h1>
+
+  <div class="row-fluid">
+    <div class="span2">
+        <div class='well'>
+   <ul class="nav nav-list">
+  <li class="nav-header">
+    Board
+  </li>
+    <li>
+      <%= link_to "Boards", :controller => 'management', :action => :boards %>
+</li>
+  <li class="divider"></li>
+
+  <li class="nav-header">
+    ETC
+  </li>
+  <li>
+      <%= link_to "Users", :controller => 'management', :action => :users %>
+</li>
+  <li>
+      <%= link_to "Plugins", :controller => 'management', :action => :plugins %>
+
+</li>
+  <li>
+      <%= link_to "Themes", :controller => 'management', :action => :themes %>
+</li>
+</ul>
+        </div>
+    </div>
+    <div class="span10">
+      <table class='table table-bordered table-condensed'>
+  <thead>
+    <tr>
+      <td><%= link_to "New board", :controller => "boards", :action => 'new' %></td>
+    </tr>
+  </thead>
+  <tbody>
+  <% @boards.each do |board| %>
+  <tr>
+    <td><%= link_to board.name, :controller => "boards", :board => board.id %></td>
+    <td><%= link_to 'Edit', edit_board_path(board) %></td>
+    <td><%= link_to 'Destroy', board, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+    </div>
+  </div>
+</div>
+
+	<% else %>
+	You are not admin
+<% end %>
+<% else %>
+Please log-in
+<%= render :template => 'sessions/new' %>
+<% end %>

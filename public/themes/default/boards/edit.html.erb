@@ -1,0 +1,48 @@
+<% if current_user %>
+<% if current_user.admin%>
+
+<div class="container-fluid">
+		<h1>Management.</h1>
+
+  <div class="row-fluid">
+    <div class="span2">
+        <div class='well'>
+   <ul class="nav nav-list">
+  <li class="nav-header">
+    Board
+  </li>
+    <li>
+    <a href='/system-manage/boards'>Boards</a>
+</li>
+  <li class="divider"></li>
+
+  <li class="nav-header">
+    ETC
+  </li>
+  <li>
+    <a href='/system-manage/users'>Users</a>
+
+</li>
+  <li>
+    <a href='/system-manage/plugins'>Plugins</a>
+
+</li>
+  <li>
+    <a href='/system-manage/themes'>Themes</a>
+</li>
+</ul>
+        </div>
+    </div>
+    <div class="span10">
+<%= render 'form' %>
+    </div>
+  </div>
+</div>
+
+	<% else %>
+	You are not admin
+<% end %>
+<% else %>
+Please log-in
+<%= render :template => 'sessions/new' %>
+<% end %>

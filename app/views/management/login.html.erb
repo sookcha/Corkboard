@@ -1,0 +1,8 @@
+<% if current_user %>
+<% if current_user.admin%>
+	<% else %>
+	You are not admin
+<% end %>
+<% else %>
+Please log-in
+<% end %>

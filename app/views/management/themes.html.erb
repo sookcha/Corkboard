@@ -1,0 +1,56 @@
+<% if current_user %>
+<% if current_user.admin%>
+<% else %>
+You are not admin
+<% end %>
+<% else %>
+Please log-in
+<%= render :template => 'sessions/new' %>
+<% end %>
+<div class="container-fluid">
+		<h1>Management.</h1>
+
+  <div class="row-fluid">
+    <div class="span2">
+        <div class='well'>
+   <ul class="nav nav-list">
+  <li class="nav-header">
+    Board
+  </li>
+    <li>
+      <%= link_to "Boards", :controller => 'management', :action => :boards %>
+</li>
+  <li class="divider"></li>
+
+  <li class="nav-header">
+    ETC
+  </li>
+  <li>
+      <%= link_to "Users", :controller => 'management', :action => :users %>
+</li>
+  <li>
+      <%= link_to "Plugins", :controller => 'management', :action => :plugins %>
+
+</li>
+  <li>
+      <%= link_to "Themes", :controller => 'management', :action => :themes %>
+</li>
+
+
+</ul>
+        </div>
+    </div>
+    <div class="span10">
+      Selected Theme : <%= @theme_now %>
+<%= form_tag(:action=>:themeUpdate, :method=>'post') do -%>
+<select id='theme' name='theme'>
+<% @dirs.each do |dir| %>
+    <option ><%= File.basename(dir) %></option>
+<% end %>
+
+</select>
+
+   <%= submit_tag 'Change theme' %>
+   <% end -%>
+  </div>
+</div>

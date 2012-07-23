@@ -1,0 +1,76 @@
+<div class="container-fluid">
+    <h1>Corkboard.</h1>
+
+  <div class="row-fluid">
+    <div class="span2">
+      <div class="container-login">
+  <div class='well'>
+
+  <% if !current_user %>
+    <%= render :template => 'sessions/new' %>
+<% end %>
+<% if current_user %>
+<% if current_user.admin%>
+<%= link_to 'Logout', '/logout'%>
+|
+<%= link_to 'Management', '/system-manage' %>
+
+<p><%= current_user.name %></p>
+
+<% else %>
+<% end %>
+<%if !current_user.admin%>
+<%= link_to 'Logout', '/logout'%>
+<% end %>
+<% end %>
+</div>
+</div>
+
+      <div class='well'>
+   <ul class="nav nav-list">
+  <li class="nav-header">
+    Boards
+  </li>
+  <% @boards.each do |board| %>
+  <li>
+  <%= link_to board.name, :controller => "boards", :board => board.id %>
+</li>
+  <% end %>
+</ul>
+</div>
+    </div>
+    <div class="span10">
+      <p id="notice"><%= notice %></p>
+
+<div class="row-fluid">
+      <div class="span12">
+      <%= @post.title %>
+
+    <div class="span12">
+      by <%= @post.author %> on <%= @post.created_at.strftime("%B %d, %Y %k:%M") %>
+
+    </div>
+
+    <div class="row-fluid">
+      <div class="span6">  
+        <%= markdown(@post.body) %>
+      </div>
+
+    </div>
+
+<h2>Comments</h2>
+<%= render @post.comments %>
+
+<% if current_user %>
+<h2>Add a comment:</h2>
+<%= render "comments/form" %>
+<% end %>
+  </div>
+</div>
+<% if current_user %>
+<% if @post.author == current_user.name %>
+<%= link_to 'Edit', edit_post_path(@post) %> | 
+<%= link_to 'Destroy', @post, confirm: 'Are you sure?', method: :delete %>
+<% end %>
+<% end %>
+</div>

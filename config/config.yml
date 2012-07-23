@@ -1,0 +1,10 @@
+defaults: &DEFAULTS
+  theme_path: default
+development:
+  <<: *DEFAULTS
+
+test:
+  <<: *DEFAULTS
+
+production:
+  <<: *DEFAULTS
